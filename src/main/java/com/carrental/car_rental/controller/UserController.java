@@ -1,6 +1,7 @@
 package com.carrental.car_rental.controller;
 
 
+import com.carrental.car_rental.model.dto.UserDTO;
 import com.carrental.car_rental.model.entity.User;
 import com.carrental.car_rental.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +18,14 @@ public class UserController {
 
 
     public UserController(UserService userService) {
+
         this.userService = userService;
     }
 
 
     @GetMapping
-    public List<User> getUsers() {
+    public List<UserDTO> getUsers() {
+
         return userService.getAllUsers();
     }
 }
