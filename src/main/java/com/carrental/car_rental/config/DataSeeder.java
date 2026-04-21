@@ -42,6 +42,15 @@ public class DataSeeder implements CommandLineRunner {
             System.out.println(" Default Role created: CUSTOMER");
         }
 
+        if(roleRepository.findByName("ADMIN").isEmpty()){
+            Role adminRole = new Role();
+            adminRole.setName("ADMIN");
+            roleRepository.save(adminRole);
+            System.out.println(" Default Role created: ADMIN");
+
+
+        }
+
 
         if (userRepository.findByEmail("admin@carrental.com").isEmpty()) {
             User adminUser = new User();
