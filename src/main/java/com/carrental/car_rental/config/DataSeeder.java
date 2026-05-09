@@ -6,6 +6,7 @@ import com.carrental.car_rental.model.entity.User;
 import com.carrental.car_rental.repository.RoleRepository;
 import com.carrental.car_rental.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -15,11 +16,14 @@ public class DataSeeder implements CommandLineRunner {
 
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
-    public DataSeeder(RoleRepository roleRepository, UserRepository userRepository) {
+
+    public DataSeeder(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -52,11 +56,11 @@ public class DataSeeder implements CommandLineRunner {
         }
 
 
-        if (userRepository.findByEmail("admin@carrental.com").isEmpty()) {
+        if (userRepository.findByEmail("superadmin@carrental.com").isEmpty()) {
             User adminUser = new User();
             adminUser.setName("Super Admin");
-            adminUser.setEmail("admin@carrental.com");
-            adminUser.setPassword("admin123");
+            adminUser.setEmail("superadmin@carrental.com");
+            adminUser.setPassword(passwordEncoder.encode("admin123"));
 
             Optional<Role> adminRole = roleRepository.findByName("SUPER_ADMIN");
             adminRole.ifPresent(adminUser::setRole);
