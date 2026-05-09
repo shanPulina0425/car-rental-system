@@ -1,7 +1,10 @@
 package com.carrental.car_rental.model.entity;
 
+import com.carrental.car_rental.model.enums.AuthProvider;
 import jakarta.persistence.*;
 import lombok.Data;
+
+
 
 @Entity
 @Data
@@ -17,7 +20,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+
     private String password;
 
 
@@ -32,5 +35,10 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
+
+    @Enumerated(EnumType.STRING)
+    private AuthProvider authProvider;
+
+    private String profileImageUrl;
 
 }
